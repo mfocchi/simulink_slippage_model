@@ -28,7 +28,8 @@ sim_param.motor_tau = 0.2; %[s] low pass filter 1/(tau*s+1)
 % v     = vm*t + vq;
 % Omega = am*t + aq;
 
-path_param.time_vec = [0,10,15,20];
+
+path_param.time_vec = [0,2,4];
 path_param.linear_velocity.q  = [0.1,0.1,0.1]; % offset
 path_param.linear_velocity.m  = [0,0,0]; %slope
 path_param.angular_velocity.q = [0.1,-0.1,0.1];% offset
@@ -37,10 +38,9 @@ path_param.angular_velocity.m = [0,0,0];%slope
 sim_param.t_end   = max(path_param.time_vec); % [s]
 %% trajectory generation
 path_param.init_pose = [0.0, 0.0, 0.0]; % [m,m,rad]
-path_param.dt = 0.005; % [s]
+path_param.dt = 0.001; % [s]
 
-%%filters
-
+%derivative %filters
 param.tau_der = 0.01; % time constant of derivative filter
 z = tf('z',sim_param.dt);
 Gd2_be = (z-1)/(z*(sim_param.dt+param.tau_der)- param.tau_der);
