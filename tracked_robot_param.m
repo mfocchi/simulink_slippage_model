@@ -56,7 +56,7 @@ ctrl_param.Kp = 10;%0.1;
 % ctrl_param.K_theta = 5;
 % ctrl_param.Kx = 10;%0.1;
 
-if exist('model_unicycle','var')
+if ~exist('model_unicycle','var')
     model_unicycle = 0;
 end
 
