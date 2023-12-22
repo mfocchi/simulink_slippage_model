@@ -32,8 +32,7 @@ sim_param.motor_tau = 0.2; %[s] low pass filter 1/(tau*s+1)
 path_param.time_vec = [0,2,4];
 path_param.linear_velocity.q  = [0.1,0.1,0.1]; % offset
 path_param.linear_velocity.m  = [0,0,0]; %slope
-%path_param.angular_velocity.q = [0.1,-0.1,0.1];% does not converges
-path_param.angular_velocity.q = [0.1,-0.05,0.1];% converges
+path_param.angular_velocity.q = [0.1,-0.1,0.1];% converges
 path_param.angular_velocity.m = [0,0,0];%slope
 
 sim_param.t_end   = max(path_param.time_vec); % [s]
@@ -62,13 +61,17 @@ if ~exist('model_unicycle','var')
 end
 
 
+ctrl_param.v_filter = 0;
+ctrl_param.omega_filter = 0;
+
+
 
 
 
 % NOT USED high freq pole for alpha to avoida algebraic loop
-% tau_p = 0.001;
-% %Gd = c2d(tf([1],[tau_p 1]), 0.001, 'zoh')
-% z = tf('z',sim_param.dt);
-% Gd_be2 = sim_param.dt *z/(z*(sim_param.dt + tau_p) -tau_p);
-% [param.num_lowpass_be, param.den_lowpass_be] = tfdata(zpk(Gd_be2),'v');
+tau_p = 0.001;
+%Gd = c2d(tf([1],[tau_p 1]), 0.001, 'zoh')
+z = tf('z',sim_param.dt);
+Gd_be2 = sim_param.dt *z/(z*(sim_param.dt + tau_p) -tau_p);
+[param.num_lowpass_be, param.den_lowpass_be] = tfdata(zpk(Gd_be2),'v');
 
